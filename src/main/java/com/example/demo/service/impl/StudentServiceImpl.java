@@ -10,23 +10,24 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
 
+    List<Student> studentList = buildStudents();
+
     @Override
     public Student getByNumber(String studentNumber) {
-        return buildStudents().stream().filter(student -> studentNumber
+        return studentList.stream().filter(student -> studentNumber
                 .equals(student.getStudentNumber()))
                 .findAny().orElse(null);
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return buildStudents();
+        return studentList;
     }
 
     @Override
     public List<Student> addStudent(Student student) {
-        List<Student> addStudentList = buildStudents();
-        addStudentList.add(student);
-        return addStudentList;
+        studentList.add(student);
+        return studentList;
     }
 
     @Override
