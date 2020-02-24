@@ -1,12 +1,25 @@
 package com.example.demo.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "Student")
 public class Student implements Serializable {
 
+    @Id
     private String studentNumber;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "grade")
     private String grade;
+
+    @Column(name = "age")
     private int age;
 
 
@@ -17,6 +30,11 @@ public class Student implements Serializable {
         this.name = name;
         this.grade = grade;
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Student Number: "+studentNumber+" Name: "+name+" Grade: "+grade +" Age: "+age;
     }
 
     public String getStudentNumber() {
