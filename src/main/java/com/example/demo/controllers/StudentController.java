@@ -40,31 +40,18 @@ public class StudentController {
     }
 
     @PostMapping(value = "/addStudent")
-    public ResponseEntity<?> addStudent(@RequestBody Map<String,String > body){
-        Student newStudent = new Student(
-                body.get("studentNumber"),
-                body.get("name"),
-                body.get("grade"),
-                Integer.parseInt(body.get("age")));
-        List<Student> students  = studentService.addStudent(newStudent);
-        if(students == null){
-            return new ResponseEntity("Students Not Found!",HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<?> addStudent(@RequestBody Student student){
+        List<Student> students  = studentService.addStudent(student);
+
         return ResponseEntity.ok(students);
     }
 
     @PutMapping(value = "/updateStudent/{studentNumber}")
-    public ResponseEntity<?> updateStudent(@PathVariable(name = "studentNumber") String studentNumber,@RequestBody Map<String,String > body){
-        Student newStudent = new Student(
-                body.get("studentNumber"),
-                body.get("name"),
-                body.get("grade"),
-                Integer.parseInt(body.get("age")));
-        Student student  = studentService.updateStudent(studentNumber,newStudent);
-        if(student == null){
-            return new ResponseEntity("Students Not Found!",HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(student);
+    public ResponseEntity<?> updateStudent(@PathVariable(name = "studentNumber") String studentNumber,
+                                           @RequestBody Student student){
+        Student updatedStudent  = studentService.updateStudent(studentNumber,student);
+
+        return ResponseEntity.ok(updatedStudent);
     }
 
 }

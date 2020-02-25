@@ -1,7 +1,9 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.models.Student;
+import com.example.demo.models.StudentRepository;
 import com.example.demo.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +14,9 @@ public class StudentServiceImpl implements StudentService {
 
     List<Student> studentList = buildStudents();
 
+    @Autowired
+    private StudentRepository studentRepository;
+
     @Override
     public Student getByNumber(String studentNumber) {
         return studentList.stream().filter(student -> studentNumber
@@ -21,13 +26,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getAllStudents() {
-        return studentList;
+        return studentRepository.findAll();
     }
 
     @Override
     public List<Student> addStudent(Student student) {
-        studentList.add(student);
-        return studentList;
+
+        studentRepository.save(student);
+        return studentRepository.findAll();
     }
 
     @Override
